@@ -9,4 +9,9 @@ function writeMessage(destinationUserId, message) {
   socket.emit(WRITE_CHAT_MESSAGE, destinationUserId, myUserId, message);
 }
 
+function isWitting(destinationUserId, message) {
+  const myUserId = get_my_fake_id();
+  socket.emit(WRITE_CHAT_MESSAGE, destinationUserId, myUserId, message);
+}
+
 export { writeMessage };

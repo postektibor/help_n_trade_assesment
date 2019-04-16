@@ -18,15 +18,21 @@ class ChatMessage extends React.Component {
     this.setState({ messageInput: event.target.value });
   }
 
+  handleClose=()=>{
+    this.props.onClose();
+    this.setState({messageInput:''})
+  }
+
 
   render() {
-    const { selectedUser, isOpen, onClose } = this.props;
+    const { selectedUser, isOpen } = this.props;
     const { messageInput } = this.state;
     return (
-      <Modal isOpen={isOpen} toggle={onClose} className={this.props.className}>
-        <ModalHeader toggle={onClose}>Instant messaging</ModalHeader>
+      <Modal isOpen={isOpen} toggle={this.handleClose} className={this.props.className}>
+        <ModalHeader toggle={this.handleClose}>Instant messaging</ModalHeader>
         <ModalBody cssModule={{ height: 500 }}>
           <ListGroup>
+            <Message/>
             <Message/>
           </ListGroup>
           <FormGroup className="chat_form">
