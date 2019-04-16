@@ -1,9 +1,8 @@
 import React from 'react';
-import UserList from 'containers/UserList';
-
+import MapOfUsers from 'containers/MapOfUsers';
 const App = () => {
   return (
-    <UserList/>
+    <MapOfUsers/>
   );
 }
 
