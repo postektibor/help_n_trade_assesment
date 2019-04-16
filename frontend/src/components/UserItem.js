@@ -1,17 +1,23 @@
 import React from 'react';
 import 'css/components/UserItem.css';
-import { Collapse, Button, CardBody, Card } from 'reactstrap';
+import { ListGroupItem } from 'reactstrap';
+
+
+
 
 const UserItem = (props) => {
-  const { name, email } = props;
+  const { user, handleSelectUser } = props;
+  const { name, email } = user;
+
+  const handleClick = (event) => {
+    handleSelectUser(user);
+  }
+
   return (
-    <div>
-      <div>{name}</div>
-      <Card>
-        <CardBody>
-          {email}
-        </CardBody>
-      </Card>
+    <div onClick={handleClick}>
+      <ListGroupItem tag="a" action>
+        {name}
+      </ListGroupItem>
     </div>
   )
 };
