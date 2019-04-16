@@ -6,3 +6,7 @@
   border-radius: 50%;
   display: inline-block;
 }
+
+.chat_form {
+  padding-top: 30px;
+}

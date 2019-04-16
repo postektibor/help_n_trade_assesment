@@ -3,13 +3,16 @@ import { load_users } from 'service/usersService';
 import 'css/App.css';
 import UserDetail from 'components/modals/UserDetail';
 import ReactMapGL, { Marker } from 'react-map-gl';
-import { Container, Row } from 'reactstrap';
+import { Button, Container, Row } from 'reactstrap';
+import { writeMessage } from 'service/chatService';
+import ChatMessage from "../components/modals/ChatMessage";
 
 class UserList extends React.Component {
   state = {
     users: [],
     selectedUser: {},
-    isOpen: false,
+    isOpenUserDetail: false,
+    isOpenChat: false,
     viewport: {
       height: 640,
       latitude: 24.8918,
@@ -28,11 +31,19 @@ class UserList extends React.Component {
   }
 
   handleSelectedUser = (user) => event => {
-    this.setState({ selectedUser: user, isOpen: true });
+    this.setState({ selectedUser: user, isOpenUserDetail: true });
   }
 
-  handleCloseModal = () => {
-    this.setState({ selectedUser: {}, isOpen: false });
+  handleCloseModalUserDetail = () => {
+    this.setState({ selectedUser: {}, isOpenUserDetail: false });
+  }
+
+  handleCloseModalChat = () => {
+    this.setState({ selectedUser: {}, isOpenChat: false });
+  }
+
+  handleOpenChat = () => {
+    this.setState({ isOpenChat: true, isOpenUserDetail: false });
   }
 
   handleRemoveUser = (user) => event => {
@@ -41,12 +52,12 @@ class UserList extends React.Component {
     var filtered = users.filter(function (usr) {
       return usr.id !== user.id;
     });
-    this.setState({ users: filtered, selectedUser: {}, isOpen: false });
+    this.setState({ users: filtered, selectedUser: {}, isOpenUserDetail: false });
   }
 
 
   render() {
-    const { users, isOpen, selectedUser, viewport } = this.state;
+    const { users, selectedUser, viewport, isOpenChat, isOpenUserDetail } = this.state;
     const self = this;
     return (
       <>
@@ -79,7 +90,8 @@ class UserList extends React.Component {
             )
           })}
         </ReactMapGL>
-        <UserDetail user={selectedUser} isOpen={isOpen} onClose={this.handleCloseModal} removeUser={this.handleRemoveUser}/>
+        <UserDetail user={selectedUser} isOpen={isOpenUserDetail} onClose={this.handleCloseModalUserDetail} openChat={this.handleOpenChat} removeUser={this.handleRemoveUser}/>
+        <ChatMessage selectedUser={selectedUser} isOpen={isOpenChat} onClose={this.handleCloseModalChat}/>
       </>
     );
   }

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap';
 
 const UserDetail = (props) => {
-  const { user, isOpen, onClose, removeUser } = props;
+  const { user, isOpen, onClose, removeUser, openChat } = props;
   const { name, email, address, username } = user;
   if (!address) return null;
   const { street, city, suite, zipcode } = address;
@@ -42,6 +42,7 @@ const UserDetail = (props) => {
 
       </ModalBody>
       <ModalFooter>
+        <Button color="primary" onClick={openChat}>Write message...</Button>
         <Button color="danger" onClick={removeUser(user)}>Remove user</Button>
       </ModalFooter>
     </Modal>
